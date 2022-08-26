@@ -53,16 +53,7 @@ QJsonObject getVols(QString depart, QString arrivee, QString dateDepart)
         QJsonObject o;
         int i{0};
         for(auto &key  : listeKeys) o[key] = query.value(i++).toString();
-        //        o["id"] = query.value(0).toString();
-        //        o["idAvion"] = query.value(1).toString();
-        //        o["Nom"] = query.value(2).toString();
-        //        o["Depart"] = query.value(3).toString();
-        //        o["Arrivee"] = query.value(4).toString();
-        //        o["dateDepart"] = query.value(5).toString();
-        //        o["dateArrivee"] = query.value(6).toString();
-        //        o["heureDepart"] = query.value(7).toString();
-        //        o["heureArrivee"] = query.value(8).toString();
-
+   
         tab.append(o);
     }
     return QJsonObject{
@@ -139,11 +130,6 @@ QJsonObject getPassager(QString recherche)
             QList<QString> listeKeys{"id","Nom","Prenom","Telephone", "Email"};
             int it{0};
             for(auto &key  : listeKeys) o[key] = query.value(it++).toString();
-            //            o["id"] = query.value(0).toInt();
-            //            o["Nom"] = query.value(1).toString();
-            //            o["Prenom"] = query.value(2).toString();
-            //            o["Telephone"] = query.value(3).toString();
-            //            o["Email"] = query.value(4).toString();
             tab.append(o);
         }
         else i++;
@@ -167,8 +153,6 @@ QString addPassager(QJsonObject o)
     query.exec(requete);
     return query.lastError().text();
 }
-
-
 
 
 /* Requete 4-1 */
@@ -249,20 +233,6 @@ QJsonObject getReservation(QString UUID)
             if(i<10) o[listeKeys[i]] = query.value(i).toString();
             else o[listeKeys[i]] = query.value(i+2).toString();
         }
-
-        //        o["idVol"] = query.value(0).toInt();
-        //        o["idSiege"] = query.value(1).toString();
-        //        o["UUID"] = query.value(2).toString();
-        //        o["Nom"] = query.value(3).toString();
-        //        o["Prenom"] = query.value(4).toString();
-        //        o["dateArrivee"] = query.value(5).toString();
-        //        o["dateDepart"] = query.value(6).toString();
-        //        o["heureArrivee"] = query.value(7).toString();
-        //        o["heureDepart"] = query.value(8).toString();
-        //        o["Nom"] = query.value(9).toString();
-        //        o["Depart"] = query.value(12).toString();
-        //        o["Arrivee"] = query.value(13).toString();
-
         tab.append(o);
     }
     return QJsonObject{
@@ -336,10 +306,6 @@ int main(int argc, char *argv[])
         db.open();
     }
 
-    //requete 0:
-    //    server.route("/villes", [] (const QHttpServerRequest & request) {
-    //        return getVilles();
-    //    });
     server.route("/villes", [] () {
         return getVilles();
     });
