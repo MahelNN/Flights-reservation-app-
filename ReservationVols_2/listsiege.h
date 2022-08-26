@@ -16,7 +16,6 @@ class ListSiege : public QDialog
     Q_OBJECT
 
 public:
-    //    explicit ListSiege(int r, int c, QList<QString> sO, QWidget *parent = nullptr);
     explicit ListSiege(int r, int c, QJsonObject jO, QWidget *parent = nullptr);
     ~ListSiege();
 
@@ -30,8 +29,6 @@ public:
 
 public slots:
     void selectSiege(QString, bool);
-    void setSiegeOccupe(QJsonObject);
-//    void validerSiege(QJsonObject o3);
     void setID(int);
     void validerSiege(bool);
 
@@ -45,14 +42,15 @@ private slots:
 private:
     Ui::ListSiege *ui;
     int mID;
+    int nbLigne;
+    int nbColonne;
+
     Communication* mcom3;
     QGraphicsScene* mScene;
     QGraphicsSceneMouseEvent* mEvent;
-    QList<QString> siegeOccupes;
-    int nbLigne;
-    int nbColonne;
-    QJsonObject mData;
 
+    QList<QString> siegeOccupes;
+    QJsonObject mData;
     QString mSelection = "";
 
 };

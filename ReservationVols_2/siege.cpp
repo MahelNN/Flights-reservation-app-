@@ -7,16 +7,18 @@ Siege::Siege(QString nomSiege, QGraphicsObject *parent): QGraphicsObject(parent)
     mNom = nomSiege;
     nbLigne = 0;
     nbColonne = 0;
-
 }
+
+
 QRectF Siege::boundingRect() const
 {
     return QRectF(0, 0, 50, 50);
 }
 
+
 void Siege::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QRectF r = boundingRect();
+    //    QRectF r = boundingRect();
     QRectF r1 = QRectF(5, 5, 35, 45);
     QDir path = QDir::currentPath();
     //    qDebug() << path.dirName();
@@ -54,23 +56,8 @@ void Siege::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     //painter->drawRect(r);
 }
 
-//void Siege::setSiegeOccupe(QJsonObject jO)
-//{
-//    //    ui->tw->setItem(i,2,new QTableWidgetItem(jsonArray1.at(i).toObject().value("idSiege").toString()));
-//    QJsonArray jA = jO["sieges"].toArray();
-//    siegeOccupes.resize(jA.count());
-//    for(int i=0; i< jA.count(); i++)
-//    {
-//        siegeOccupes[i] = jA.at(i).toObject().value("idSiege").toString();
-//        qDebug() << siegeOccupes[i];
-//    }
-//}
 
 void Siege::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    //    qDebug() << event->scenePos();
-    //    qDebug() << mNom;
-
-    //event->scenePos() ;
     emit siegeClicked(mNom, mOccupe);
 }

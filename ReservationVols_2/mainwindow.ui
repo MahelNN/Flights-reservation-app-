@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>812</width>
-    <height>639</height>
+    <width>842</width>
+    <height>790</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,51 +15,85 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
+    <item row="5" column="5">
+     <widget class="QLineEdit" name="leNomPassager">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="12" colspan="2">
+     <widget class="QLabel" name="label_13">
       <property name="text">
-       <string>Départ</string>
+       <string>ID Siège</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="0" column="1" colspan="3">
-     <widget class="QComboBox" name="leVilleDepart"/>
-    </item>
-    <item row="0" column="6">
-     <widget class="QLabel" name="label_2">
+    <item row="12" column="6" colspan="2">
+     <widget class="QPushButton" name="pbAnnuler_Reservation">
       <property name="text">
-       <string>Arrivée</string>
+       <string>Annuler</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="7">
-     <widget class="QComboBox" name="leVilleArrivee"/>
-    </item>
-    <item row="0" column="9">
-     <widget class="QLabel" name="label_3">
+    <item row="3" column="0" colspan="2">
+     <widget class="QPushButton" name="pbValiderUnVol">
       <property name="text">
-       <string>Date départ</string>
+       <string>Valider</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="11" colspan="2">
-     <widget class="QDateEdit" name="dateEdit">
-      <property name="calendarPopup">
-       <bool>true</bool>
+    <item row="5" column="1" colspan="3">
+     <widget class="QLineEdit" name="leIDPassager">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="3">
-     <widget class="QPushButton" name="pbRechercheListVols">
+    <item row="12" column="5">
+     <widget class="QPushButton" name="pbModifier_Reservation">
       <property name="text">
-       <string>Rechercher les vols</string>
+       <string>Modifier</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0" colspan="13">
+    <item row="4" column="0" colspan="15">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="12">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>Email</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0" colspan="2">
+     <widget class="QPushButton" name="RechercherPassager">
+      <property name="text">
+       <string>Rechercher</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="15">
      <widget class="QTableWidget" name="twListeDesVols">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
@@ -74,7 +108,7 @@
        <number>0</number>
       </property>
       <property name="columnCount">
-       <number>9</number>
+       <number>10</number>
       </property>
       <attribute name="horizontalHeaderStretchLastSection">
        <bool>true</bool>
@@ -88,19 +122,183 @@
       <column/>
       <column/>
       <column/>
+      <column/>
      </widget>
     </item>
-    <item row="3" column="0" colspan="2">
-     <widget class="QPushButton" name="pbValiderUnVol">
+    <item row="1" column="0" colspan="2">
+     <widget class="QPushButton" name="pbRechercheListVols">
       <property name="text">
-       <string>Valider</string>
+       <string>Rechercher les vols</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0" colspan="13">
-     <widget class="Line" name="line">
+    <item row="9" column="0" rowspan="3" colspan="12">
+     <widget class="QTableWidget" name="twInformation_Reservation">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="columnCount">
+       <number>11</number>
+      </property>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+    </item>
+    <item row="5" column="7" colspan="3">
+     <widget class="QLineEdit" name="lePrenomPassager">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="3" colspan="2">
+     <widget class="QPushButton" name="pbRechercher_Reservation">
+      <property name="text">
+       <string>Rechercher</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="6">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>Prenom</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="10">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Tél</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="11">
+     <widget class="QLineEdit" name="leTelephonePassager">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Départ</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="15">
+     <widget class="QTableWidget" name="twInformationPassager">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="showGrid">
+       <bool>false</bool>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <property name="columnCount">
+       <number>6</number>
+      </property>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+    </item>
+    <item row="5" column="13" colspan="2">
+     <widget class="QLineEdit" name="leEmailPassager">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0" colspan="15">
+     <widget class="Line" name="line_2">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="9">
+     <spacer name="horizontalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="7" column="6">
+     <widget class="QPushButton" name="AjouterPassager">
+      <property name="text">
+       <string>Ajouter</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="14">
+     <widget class="QLineEdit" name="leReserv_IDPassager">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Nom</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="14">
+     <widget class="QPushButton" name="ModifierPassager">
+      <property name="text">
+       <string>Modifier</string>
       </property>
      </widget>
     </item>
@@ -109,129 +307,12 @@
       <property name="text">
        <string>ID client</string>
       </property>
-     </widget>
-    </item>
-    <item row="5" column="1" colspan="2">
-     <widget class="QLineEdit" name="leIDPassager"/>
-    </item>
-    <item row="5" column="3">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Nom</string>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="5" column="4" colspan="2">
-     <widget class="QLineEdit" name="leNomPassager"/>
-    </item>
-    <item row="5" column="6">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>Prenom</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="7">
-     <widget class="QLineEdit" name="lePrenomPassager"/>
-    </item>
-    <item row="5" column="8">
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>Tél</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="9">
-     <widget class="QLineEdit" name="leTelephonePassager"/>
-    </item>
-    <item row="5" column="10">
-     <widget class="QLabel" name="label_7">
-      <property name="text">
-       <string>Email</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="11" colspan="2">
-     <widget class="QLineEdit" name="leEmailPassager"/>
-    </item>
-    <item row="6" column="0" colspan="13">
-     <widget class="QTableWidget" name="twInformationPassager">
-      <property name="showGrid">
-       <bool>false</bool>
-      </property>
-      <property name="gridStyle">
-       <enum>Qt::SolidLine</enum>
-      </property>
-      <property name="columnCount">
-       <number>5</number>
-      </property>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>true</bool>
-      </attribute>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="3">
-     <widget class="QPushButton" name="RechercherPassager">
-      <property name="text">
-       <string>Rechercher</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="7">
-     <widget class="QPushButton" name="AjouterPassager">
-      <property name="text">
-       <string>Ajouter</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="11" colspan="2">
-     <widget class="QPushButton" name="ModifierPassager">
-      <property name="text">
-       <string>Modifier</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0" colspan="13">
-     <widget class="Line" name="line_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>ID vol</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>ID client</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="0">
-     <widget class="QLabel" name="label_13">
-      <property name="text">
-       <string>ID Siège</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="0">
-     <widget class="QLabel" name="label_8">
-      <property name="text">
-       <string>N° billet: </string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="1" colspan="6">
+    <item row="12" column="10" colspan="5">
      <widget class="QLineEdit" name="leReserv_UUID">
       <property name="enabled">
        <bool>true</bool>
@@ -242,81 +323,205 @@
         <height>0</height>
        </size>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
-    <item row="12" column="7" colspan="2">
+    <item row="9" column="14">
+     <widget class="QLineEdit" name="leReserv_IDVOL">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="10" column="12" colspan="2">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>ID client</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="9">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>N° billet: </string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="2">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="12" column="0" colspan="2">
      <widget class="QPushButton" name="pbCreer_Reservation">
       <property name="text">
        <string>Reserver</string>
       </property>
      </widget>
     </item>
-    <item row="12" column="9">
-     <widget class="QPushButton" name="pbRechercher_Reservation">
+    <item row="9" column="12">
+     <widget class="QLabel" name="label_10">
       <property name="text">
-       <string>Rechercher</string>
+       <string>ID vol</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="12" column="10" colspan="2">
-     <widget class="QPushButton" name="pbModifier_Reservation">
-      <property name="text">
-       <string>Modifier</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="12">
-     <widget class="QPushButton" name="pbAnnuler_Reservation">
-      <property name="text">
-       <string>Annuler</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1" colspan="2">
-     <widget class="QLineEdit" name="leReserv_IDVOL">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1" colspan="2">
-     <widget class="QLineEdit" name="leReserv_IDPassager">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="1" colspan="2">
+    <item row="11" column="14">
      <widget class="QLineEdit" name="leIDSiegeReserv">
       <property name="enabled">
        <bool>true</bool>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
-    <item row="9" column="3" rowspan="3" colspan="10">
-     <widget class="QTableWidget" name="twInformation_Reservation">
-      <property name="showGrid">
-       <bool>true</bool>
+    <item row="12" column="8">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-      <property name="columnCount">
-       <number>12</number>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>132</width>
+        <height>20</height>
+       </size>
       </property>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>true</bool>
-      </attribute>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
+     </spacer>
+    </item>
+    <item row="0" column="1" colspan="3">
+     <widget class="QComboBox" name="leVilleDepart">
+      <property name="sizeAdjustPolicy">
+       <enum>QComboBox::AdjustToContents</enum>
+      </property>
      </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Arrivée</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="5" colspan="2">
+     <widget class="QComboBox" name="leVilleArrivee">
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QComboBox::AdjustToContents</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="8">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Date départ</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="9" colspan="3">
+     <widget class="QDateEdit" name="dateEdit">
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="dateTime">
+       <datetime>
+        <hour>22</hour>
+        <minute>0</minute>
+        <second>0</second>
+        <year>2022</year>
+        <month>6</month>
+        <day>24</day>
+       </datetime>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="12" colspan="3">
+     <spacer name="horizontalSpacer_7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="2" colspan="6">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Expanding</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="3" colspan="4">
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
@@ -325,8 +530,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>812</width>
-     <height>26</height>
+     <width>842</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>

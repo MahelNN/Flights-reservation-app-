@@ -90,22 +90,20 @@ void Communication::listeSiegeReceived()
         QByteArray DataSiege = r->readAll();
         QJsonDocument JsonDoc4 = QJsonDocument::fromJson(DataSiege);
         QJsonObject  JsonObj4 = JsonDoc4.object();
-//        qDebug() << "liste siege receive";
-//        qDebug() << JsonDoc4;
+        //        qDebug() << "liste siege receive";
+        //        qDebug() << JsonDoc4;
         emit listSiege(JsonObj4);
     }
     else
     {
         qDebug() << "Erreur:" << r->errorString();
     }
-//    r->deleteLater();
+    //    r->deleteLater();
 }
 
 
 
 /*   requete 3 */
-
-
 void Communication::getPassagers(QString recherche)
 {
     QNetworkReply *r = manager->get(QNetworkRequest(QUrl(mUrlServer + "/passagers/" + recherche)));
@@ -134,7 +132,6 @@ void Communication::passagersReceived()
 
 
 /* requete 4  */
-
 void Communication::addPassager(QString nom, QString prenom, QString telephone, QString email)
 {
     QJsonObject o;
@@ -162,7 +159,7 @@ void Communication::passagerAdded()
         // transformation en QJsonObject
         QJsonDocument JsonDoc3 = QJsonDocument::fromJson(InfoClient);
         QJsonObject  JsonObj3 = JsonDoc3.object();
-//        qDebug() << r->readAll() ;
+        //        qDebug() << r->readAll() ;
         emit InfoPassager(JsonObj3);
     }
 
@@ -218,14 +215,14 @@ void Communication::addReservation(qint32 idPassager, QString idSiege, qint32 id
     o["idSiege"] = idSiege;
     o["idVol"] = idVol;
     o["UUID"] = uuid;
-//    QUuid q= QUuid();
-//    QUuid q=QUuid::createUuid();
-//    QString str=q.toString();
-//    qDebug() << q;
+    //    QUuid q= QUuid();
+    //    QUuid q=QUuid::createUuid();
+    //    QString str=q.toString();
+    //    qDebug() << q;
     QJsonDocument d(o);
     QByteArray b = d.toJson();
-//    qDebug() << "addreservation";
-//    qDebug() << b;
+    //    qDebug() << "addreservation";
+    //    qDebug() << b;
 
     QNetworkRequest requete(QUrl(mUrlServer + "/reservations"));
     requete.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
@@ -250,8 +247,6 @@ void Communication::reservationAdded()
 
 
 /* requete 7  */
-
-
 void Communication::updateReservation(QString UUID,  QString idSiege, qint32 idVol,  qint32 id )
 {
     QJsonObject o;
@@ -260,7 +255,7 @@ void Communication::updateReservation(QString UUID,  QString idSiege, qint32 idV
     //o["Prenom"] = prenom;
     o["idSiege"] = idSiege;
     o["idVol"] = idVol;
-//    o["numBillet"] = numBillet;
+    //    o["numBillet"] = numBillet;
     o["idPassager"] = id;
     QJsonDocument d(o);
     QByteArray b = d.toJson();
@@ -286,12 +281,10 @@ void Communication::reservationUpdated()
 
 
 /*  requete 6 */
-
-
 void Communication::getReservation(QString UUID)
 {
     QNetworkReply *r = manager->get(QNetworkRequest(QUrl(mUrlServer +
-                                    "/reservations/" + UUID )));
+                                                         "/reservations/" + UUID )));
 
     connect(r, SIGNAL(readyRead()), this, SLOT(reservationReceived()));
 
@@ -307,8 +300,8 @@ void Communication::reservationReceived()
         // transformation en QJsonObject
         QJsonDocument JsonDoc5 = QJsonDocument::fromJson(DataReserv);
         QJsonObject  JsonObj5 = JsonDoc5.object();
-//        qDebug() << "reservation received";
-//        qDebug() << JsonObj5;
+        //        qDebug() << "reservation received";
+        //        qDebug() << JsonObj5;
         emit InfoReservation(JsonObj5);
     }
     else
@@ -321,7 +314,6 @@ void Communication::reservationReceived()
 
 
 /* requte 8  */
-
 void Communication::deleteReservation(QString uuid)
 {
     QNetworkReply *r = manager->deleteResource(QNetworkRequest(QUrl(mUrlServer + "/reservations/" + uuid) ));

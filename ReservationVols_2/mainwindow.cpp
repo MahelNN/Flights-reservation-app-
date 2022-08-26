@@ -69,24 +69,22 @@ bool MainWindow::Controlephone(QString tel) {
 //Entete Champ liste des vols
 void MainWindow::setVolsHeader()
 {
-    ui->twListeDesVols->setHorizontalHeaderLabels(QString(" Id vol ; Id avion ; Nom avion ; Départ ; Arrivée ; Date départ ; Date arrivée ; Heure départ ; Heure arrivée ").split(";"));
-    //    ui->twListeDesVols->resizeColumnsToContents();//Ajuster la tailles des cellules de table en fonction du texte contenu
-
+    QList<QString> header{" Id vol ", " Id avion ", " Nom avion ", " Départ ", " Arrivée ", " Date départ ", " Date arrivée ", " Heure départ ", " Heure arrivée "," "};
+    ui->twListeDesVols->setHorizontalHeaderLabels(header);
 }
 
 //Entete Champ informations passager
 void MainWindow::setPassagerHeader()
 {
-    ui->twInformationPassager->setHorizontalHeaderLabels(QString(" Id client ; Nom;Prenom ; N° téléphone ;Email ").split(";"));
-    //    ui->twInformationPassager->resizeColumnsToContents();//Ajuster la tailles des cellules de table en fonction du texte contenu
-
+    QList<QString> header{" Id client ", " Nom ", " Prenom ", " N° téléphone ", " Email "," "};
+    ui->twInformationPassager->setHorizontalHeaderLabels(header);
 }
 
 //Entete champ reservation
 void MainWindow::setReservationHeader()
 {
-    ui->twInformation_Reservation->setHorizontalHeaderLabels(QString(" Nom ; Prenom ; Id siège ; ID Vol ; Ville départ ; Ville arrivée ; Date départ ; Heure depart ; Date arrivée ; Heure arrivée ; UUID ").split(";"));
-    //    ui->twInformation_Reservation->resizeColumnsToContents();//Ajuster la tailles des cellules de table en fonction du texte contenu
+    QList<QString> header{" Nom ", " Prenom ", " Id siège ", " ID Vol ", " Ville départ ", " Ville arrivée ", " Date départ ", " Heure depart ", " Heure arrivée ", " UUID ", " "};
+    ui->twInformation_Reservation->setHorizontalHeaderLabels(header);
 }
 
 
@@ -111,73 +109,29 @@ void MainWindow::rechercheListVolsClicked(bool)
     mcom->getVols(villeDep_Select, villeArrivee_Select, dateVoyage_Select);
 }
 
+//Afficher la liste des vols correspondant
 void MainWindow::afficherVols(QJsonObject o)
 {
     ui->twListeDesVols->clearContents();//Initialisation du champ
     QJsonArray jsArr = o["Vols"].toArray();
-    ui->twListeDesVols->setColumnCount(9);//Creation d'une table de taille jsArr.count()*10
+    ui->twListeDesVols->setColumnCount(10);//Creation d'une table de taille jsArr.count()*10
     ui->twListeDesVols->setRowCount(jsArr.count());
     setVolsHeader(); //afficher l'entete
 
-//    for(auto js : jsArr) qDebug() << js ;
-//    qDebug() << " ";
+    QList<QString> listeKeys{"id", "idAvion", "Nom", "Depart", "Arrivee", "dateDepart", "dateArrivee","heureDepart", "heureArrivee"};
 
     for (int i = 0; i < jsArr.count(); i++) {//Remplir la table avec les valeurs de o
         QTableWidgetItem item;
-//        auto fillListeVols = [&item, &i, &jsArr, this](QString key, int row){
-//            item = QTableWidgetItem(jsArr.at(i).toObject().value(key).toString());
-//            item.setTextAlignment(Qt::AlignCenter);
-//            ui->twListeDesVols->setItem(i, row, new QTableWidgetItem(item));
-//        };
-//        int row{0};
-//        //        for(auto js : jsArr) fillListeVols(js.to.key(), row++);
-//        while(row < 9){
-//            qDebug() << jsArr.at(i).toObject().keys().at(row++);
-//        }
-
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("id").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 0, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("idAvion").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 1, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("Nom").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 2, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("Depart").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 3, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("Arrivee").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 4, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("dateDepart").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 5, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("dateArrivee").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 6, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("Nom").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 7, new QTableWidgetItem(item));
-
-        item = QTableWidgetItem(jsArr.at(i).toObject().value("heureArrivee").toString());
-        item.setTextAlignment(Qt::AlignCenter);
-        ui->twListeDesVols->setItem(i, 8, new QTableWidgetItem(item));
-
-
-
+        //Lambda fonction pour centrer les items dans les cellules
+        auto fillListeVols = [&item, &i, &jsArr, this](QString key, int row){
+            item = QTableWidgetItem(jsArr.at(i).toObject().value(key).toString());
+            item.setTextAlignment(Qt::AlignCenter);
+            ui->twListeDesVols->setItem(i, row, new QTableWidgetItem(item));
+        };
+        int row{0}; //Remplir le champ liste des vols
+        for(const auto &key : listeKeys) fillListeVols(key, row++);
     }
-    //    ui->twListeDesVols->setAli;
-    //    ui->twListeDesVols->resizeColumnsToContents();
-    //    ui->twListeDesVols->resizeColumnsToContents();//Ajuster la tailles des cellules de table en fonction du texte contenu
+    ui->twListeDesVols->resizeColumnsToContents();
 }
 
 //Selection d'un vol
@@ -187,10 +141,10 @@ void MainWindow::validerUnVolClicked(bool)
     // Recupérer la ligne selectionnée dans le tableWidget
     int rowSelect = ui->twListeDesVols->currentRow();
     QTableWidgetItem* idVol = ui->twListeDesVols->item(rowSelect, 0);
-
-    if (rowSelect ==-1)//Rien n'est retourné si aucune ligne selectionnée
+    //Rien n'est retourné si aucune ligne selectionnée
+    if (rowSelect ==-1)
         return;
-    //Remplir le id vol dans le champ de Reservation
+    //Remplir l'id vol dans le champ de Reservation
     ui->leReserv_IDVOL->setText(QString::number(idVol->text().toInt()));
     mcom->getListeSiege(idVol->text().toInt());
 }
@@ -243,25 +197,33 @@ void MainWindow::on_RechercherPassager_clicked()
 void MainWindow::AfficheRecherchePassager(QJsonObject o)
 {
     ui->twInformationPassager->clear();
+    ui->leIDPassager->clear();
+    //Remplir l'id du passager dans le champ de reservation
+    ui->leReserv_IDPassager->clear();
 
     QJsonArray jsArr = o["data"].toArray();
-    ui->twInformationPassager->setColumnCount(5);
+    ui->twInformationPassager->setColumnCount(6);
     ui->twInformationPassager->setRowCount(1);
 
+    QList<QString> listeKeys{"id", "Nom", "Prenom", "Telephone", "Email"};
+
+    QTableWidgetItem item;
+    //Lambda fonction pour centrer les items dans les cellules
+    auto fillListeVols = [&item, &jsArr, this](QString key, int row){
+        if(key=="id") item = QTableWidgetItem(QString::number(jsArr.at(0).toObject().value(key).toDouble()));
+        else item = QTableWidgetItem(jsArr.at(0).toObject().value(key).toString());
+        item.setTextAlignment(Qt::AlignCenter);
+        ui->twInformationPassager->setItem(0, row, new QTableWidgetItem(item));
+    };
+    int row{0}; //Remplir le champ liste des vols
+    for(const auto &key : listeKeys) fillListeVols(key, row++);
+
     setPassagerHeader();//Remplir l'entete
-    ui->twInformationPassager->setItem(0, 0, new QTableWidgetItem(QString::number(jsArr.at(0).toObject().value("id").toDouble())));
-    ui->twInformationPassager->setItem(0, 1, new QTableWidgetItem(jsArr.at(0).toObject().value("Nom").toString()));
-    ui->twInformationPassager->setItem(0, 2, new QTableWidgetItem(jsArr.at(0).toObject().value("Prenom").toString()));
-    ui->twInformationPassager->setItem(0, 3, new QTableWidgetItem(jsArr.at(0).toObject().value("Telephone").toString()));
-    ui->twInformationPassager->setItem(0, 4, new QTableWidgetItem(jsArr.at(0).toObject().value("Email").toString()));
-    //    ui->twInformationPassager->resizeColumnsToContents();
-    //Remplir l'id du passager dans le champ de reservation a gauche du champ information passager
     ui->leIDPassager->setText(QString::number(jsArr.at(0).toObject().value("id").toDouble()));
     //Remplir l'id du passager dans le champ de reservation
     ui->leReserv_IDPassager->setText(QString::number(jsArr.at(0).toObject().value("id").toDouble()));
 
 }
-
 
 
 
@@ -277,28 +239,19 @@ void MainWindow::on_AjouterPassager_clicked()
 
     mcom->addPassager(NomClient, PrenomClient, TelClient, EmailClient);
 
-
     ui->twInformationPassager->setColumnCount(5);
-
     ui->twInformationPassager->setRowCount(1);
-    /*
-    ui->InformationPassager->setItem(0, 1, new QTableWidgetItem(NomClient));
-    ui->InformationPassager->setItem(0, 2, new QTableWidgetItem(PrenomClient));
-    ui->InformationPassager->setItem(0, 3, new QTableWidgetItem(EmailClient));
-    ui->InformationPassager->setItem(0, 4, new QTableWidgetItem(TelClient));
-*/
-
 }
 
 
-void MainWindow::AddClient(QJsonObject o2)
+void MainWindow::AddClient(QJsonObject o)
 {
 }
 
-void MainWindow::MiseaJourPassager(QJsonObject e)
+void MainWindow::MiseaJourPassager(QJsonObject o)
 {
-    qDebug() << e;
-    QJsonArray jsonArray4 = e["data"].toArray();
+    qDebug() << o;
+    QJsonArray jsArr = o["data"].toArray();
 }
 
 void MainWindow::on_ModifierPassager_clicked()
@@ -311,80 +264,68 @@ void MainWindow::on_ModifierPassager_clicked()
     TelClient = ui->leTelephonePassager->text();
     EmailClient = ui->leEmailPassager->text();
 
-
     mcom->updatePassager(IdClient.toInt(), NomClient, PrenomClient, TelClient, EmailClient);
-
-
     mcom->getPassagers(TelClient);
-
 
     ui->twInformationPassager->setColumnCount(5);
     ui->twInformationPassager->setRowCount(1);
-    ui->twInformationPassager->setItem(0, 0, new QTableWidgetItem(IdClient));
+
+    QList<QString> listeItems{IdClient, NomClient, PrenomClient, EmailClient, TelClient};
+    QTableWidgetItem item;
+    //Lambda fonction pour centrer les items dans les cellules
+    auto fillListeVols = [&item, this](QString arg, int row){
+        item = QTableWidgetItem(arg);
+        item.setTextAlignment(Qt::AlignCenter);
+        ui->twInformationPassager->setItem(0, row, new QTableWidgetItem(item));
+    };
+    int row{0}; //Remplir le champ liste des vols
+    for(const auto &arg : listeItems) fillListeVols(arg, row++);
+
     ui->leReserv_IDPassager->setText(IdClient);
-
-    ui->twInformationPassager->setItem(0, 1, new QTableWidgetItem(NomClient));
-    ui->twInformationPassager->setItem(0, 2, new QTableWidgetItem(PrenomClient));
-    ui->twInformationPassager->setItem(0, 3, new QTableWidgetItem(EmailClient));
-    ui->twInformationPassager->setItem(0, 4, new QTableWidgetItem(TelClient));
-
 }
 
 
 
-void MainWindow::reloadPassager()
-{
+void MainWindow::reloadPassager(){
     mcom->getPassagers(ui->leTelephonePassager->text());
 }
 
 
-void MainWindow::on_pbRechercher_Reservation_clicked()
-{
+void MainWindow::on_pbRechercher_Reservation_clicked(){
     QString UUID = ui->leReserv_UUID->text();
     //    connect(mcom, SIGNAL(InfoReservation(QJsonObject)), this, SLOT(AffichageReservation(QJsonObject)));
     mcom->getReservation(UUID);
 }
 
-void MainWindow::AffichageReservation(QJsonObject resev)
-{
+void MainWindow::AffichageReservation(QJsonObject resev){
     ui->twInformation_Reservation->clear();
 
-    QJsonArray jsonArray4 = resev["data"].toArray();
+    QJsonArray jsArr = resev["data"].toArray();
     //    qDebug() << "afficher reserv";
     //    qDebug() << QJsonDocument(resev);
     ui->twInformation_Reservation->setColumnCount(11);
     ui->twInformation_Reservation->setRowCount(1);
+
+    QList<QString> listeKeys{"Nom", "Prenom", "idSiege", "idVol", "Depart", "Arrivee", "dateDepart", "heureDepart", "heureArrivee", "UUID", " "};
+
+    QTableWidgetItem item;
+    //Lambda fonction pour centrer les items dans les cellules
+    auto fillListeVols = [&item, &jsArr, this](QString key, int col){
+        if(key=="idVol") item = QTableWidgetItem(QString::number(jsArr.at(0).toObject().value(key).toInt()));
+        else item = QTableWidgetItem(jsArr.at(0).toObject().value(key).toString());
+        item.setTextAlignment(Qt::AlignCenter);
+        ui->twInformation_Reservation->setItem(0, col, new QTableWidgetItem(item));
+    };
+    int col{0}; //Remplir le champ liste des vols
+    for(const auto &key : listeKeys) fillListeVols(key, col++);
+
     setReservationHeader();
-    ui->twInformation_Reservation->setItem(0, 0, new QTableWidgetItem(jsonArray4.at(0).toObject().value("Nom").toString()));
-    ui->twInformation_Reservation->setItem(0, 1, new QTableWidgetItem(jsonArray4.at(0).toObject().value("Prenom").toString()));
-    ui->twInformation_Reservation->setItem(0, 2, new QTableWidgetItem(jsonArray4.at(0).toObject().value("idSiege").toString()));
-    ui->twInformation_Reservation->setItem(0, 3, new QTableWidgetItem(QString::number(jsonArray4.at(0).toObject().value("idVol").toInt())));
-    ui->twInformation_Reservation->setItem(0, 4, new QTableWidgetItem(jsonArray4.at(0).toObject().value("Depart").toString()));
-    ui->twInformation_Reservation->setItem(0, 5, new QTableWidgetItem(jsonArray4.at(0).toObject().value("Arrivee").toString()));
-    ui->twInformation_Reservation->setItem(0, 6, new QTableWidgetItem(jsonArray4.at(0).toObject().value("dateDepart").toString()));
-    ui->twInformation_Reservation->setItem(0, 7, new QTableWidgetItem(jsonArray4.at(0).toObject().value("heureDepart").toString()));
-    ui->twInformation_Reservation->setItem(0, 8, new QTableWidgetItem(jsonArray4.at(0).toObject().value("dateArrivee").toString()));
-    ui->twInformation_Reservation->setItem(0, 9, new QTableWidgetItem(jsonArray4.at(0).toObject().value("heureArrivee").toString()));
-    ui->twInformation_Reservation->setItem(0, 10, new QTableWidgetItem(jsonArray4.at(0).toObject().value("UUID").toString()));
-
     ui->twInformation_Reservation->resizeColumnsToContents();
-
 }
-
-
-//void MainWindow::on_Rechercher_Reservation_clicked()
-//{
-
-
-//}
-
-
 
 
 void MainWindow::AffichageAjoutReservation(QJsonObject)
 {}
-
-
 
 void MainWindow::on_pbCreer_Reservation_clicked()
 {
@@ -399,12 +340,9 @@ void MainWindow::on_pbCreer_Reservation_clicked()
     IDVol = ui->leReserv_IDVOL->text().toInt();
     IDPassager = ui->leReserv_IDPassager->text().toInt();
 
-    //    qDebug() << "on_pbcrer_res";
-    //    qDebug() << IDPassager<< " " << IDSiege <<" " <<IDVol << " " << UUID;
     mcom->addReservation(IDPassager, IDSiege, IDVol, UUID);
 
     //mcom->getReservation(UUID); A revoir affichage directe après création reservation
-
 }
 
 
@@ -412,13 +350,11 @@ void MainWindow::DeleteReservation(QJsonObject e)
 {}
 
 
-
 void MainWindow::on_pbAnnuler_Reservation_clicked()
 {
     QString UUID;
     UUID = ui->leReserv_UUID->text();
     mcom->deleteReservation(UUID);
-
 }
 
 

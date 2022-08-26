@@ -49,16 +49,19 @@ QJsonObject getVols(QString depart, QString arrivee, QString dateDepart)
 
     while (query.next())
     {
+        QList<QString> listeKeys{"id", "idAvion", "Nom", "Depart", "Arrivee", "dateDepart", "dateArrivee", "heureDepart", "heureArrivee"};
         QJsonObject o;
-        o["id"] = query.value(0).toString();
-        o["idAvion"] = query.value(1).toString();
-        o["Nom"] = query.value(2).toString();
-        o["Depart"] = query.value(3).toString();
-        o["Arrivee"] = query.value(4).toString();
-        o["dateDepart"] = query.value(5).toString();
-        o["dateArrivee"] = query.value(6).toString();
-        o["heureDepart"] = query.value(7).toString();
-        o["heureArrivee"] = query.value(8).toString();
+        int i{0};
+        for(auto &key  : listeKeys) o[key] = query.value(i++).toString();
+        //        o["id"] = query.value(0).toString();
+        //        o["idAvion"] = query.value(1).toString();
+        //        o["Nom"] = query.value(2).toString();
+        //        o["Depart"] = query.value(3).toString();
+        //        o["Arrivee"] = query.value(4).toString();
+        //        o["dateDepart"] = query.value(5).toString();
+        //        o["dateArrivee"] = query.value(6).toString();
+        //        o["heureDepart"] = query.value(7).toString();
+        //        o["heureArrivee"] = query.value(8).toString();
 
         tab.append(o);
     }
@@ -71,61 +74,6 @@ QJsonObject getVols(QString depart, QString arrivee, QString dateDepart)
 
 
 /* requete2 */
-
-//QJsonObject getListeSiege(qint32 idVol)
-//{
-
-//    QJsonArray tab0;
-//    QJsonArray tab1;
-//    QJsonArray tab2;
-
-//    QSqlDatabase db = QSqlDatabase::database("REP");
-
-//    QSqlQuery query("SELECT * FROM liste_seige " , db);
-//    qDebug() << "lisste::::::::!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:::";
-//    qDebug() << query.value(0).toInt();
-//    qDebug() << "lisste::::::::!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:::";
-//    while (query.next())
-//    {
-//        if (idVol == query.value(0).toInt() ){
-//            QJsonObject o;
-
-//            o["Nom"] = query.value(10).toString();
-//            o["nbColonne"] = query.value(12).toInt();
-//            o["nbLigne"] = query.value(11).toInt();
-//            tab0.append(o);
-
-//            QJsonObject o1;
-//            o1["Arrivee"] = query.value(14).toString();
-//            o1["Depart"] = query.value(13).toString();
-//            o1["Nom"] = query.value(10).toString();
-//            o1["dateArrive"] = query.value(6).toString();
-//            o1["dateDepart"] = query.value(7).toString();
-//            o1["heureArrive"] = query.value(8).toString();
-//            o1["heureDepart"] = query.value(9).toString();
-//            tab1.append(o1);
-
-//            QJsonObject o2;
-//            o2["Nom"] = query.value(4).toString();
-//            o2["Prenom"] = query.value(5).toString();
-//            o2["UUID"] = query.value(2).toString();
-//            o2["idSiege"] = query.value(1).toString();
-//            tab2.append(o2);
-//        }
-//    }
-//    return QJsonObject{
-//        {
-//            "Avion", tab0
-//        },
-//        {
-//            "Liste", tab2
-//        },
-//        {
-//            "Vols", tab1
-//        }
-//    };
-//}
-
 QJsonObject getListeSiege(qint32 id)
 {
     QJsonArray tab0;
@@ -148,71 +96,54 @@ QJsonObject getListeSiege(qint32 id)
     int it = 0;
     while (query.next())
     {
+        QList<QString> listeKeys{"idVol","NomAvion","nbLigne","Depart", "Depart", "Arrivee", "dateDepart", "dateArrivee", "heureDepart", "heureArrivee", "Nom", "Prenom", "idSiege", "UUID"};
         it++;
-        //        if (id == query.value(0).toInt() )
-        //        {
-        if (it == 1)
-        {
-
-            QJsonObject o;
-            o["NomAvion"] = query.value(1).toString();
-            o["nbLigne"] = query.value(2).toInt();
-            o["nbColonne"] = query.value(3).toInt();
-            tab0.append(o);
-            //            qDebug() << "get siege main cpp";
-            //            qDebug() << tab0;
-            QJsonObject o1;
-
-            o1["idVol"] = query.value(0).toInt();
-            o1["Depart"] = query.value(4).toString();
-            o1["Arrivee"] = query.value(5).toString();
-            o1["NomAvion"] = query.value(1).toString();
-            o1["dateDepart"] = query.value(6).toString();
-            o1["dateArrivee"] = query.value(7).toString();
-            o1["heureDepart"] = query.value(8).toString();
-            o1["heureArrivee"] = query.value(9).toString();
-            tab1.append(o1);
-            //            qDebug() << tab1;
-
-
+        if (it == 1){
+            QJsonObject oAvion, oVol;
+            for(int i=0; i<10; i++){
+                if(i>0 && i<4){             //Remplir oAvion
+                    if(i==1) oAvion[listeKeys[i]] = query.value(i).toString();
+                    oAvion[listeKeys[i]] = query.value(i).toInt();
+                }
+                if((i>=0 && i<2) || (i>3)){//Remplir oVol
+                    if(i==0) oVol[listeKeys[i]] = query.value(i).toInt();
+                    oVol[listeKeys[i]] = query.value(i).toString();
+                }
+            }
+            tab0.append(oAvion);
+            tab0.append(oVol);
         }
-        QJsonObject o2;
-        o2["Nom"] = query.value(10).toString();
-        o2["Prenom"] = query.value(11).toString();
-        o2["idSiege"] = query.value(12).toString();
-        o2["UUID"] = query.value(13).toString();
-        tab2.append(o2);
-        //        qDebug() << tab2;
 
-        //        }
+        QJsonObject oSiege;//Remplir oSiege
+        for(int i=10; i<14; i++) oSiege[listeKeys[i]] = query.value(i).toString();
+        tab2.append(oSiege);
     }
 
     return QJsonObject{{ "Avion", tab0 }, { "Vol", tab1 }, { "Sieges", tab2 }};
 }
 
 
-//__________________________________________
-//Requete 3
+/* Requete 3 */
 
 QJsonObject getPassager(QString recherche)
 {
     QJsonArray tab;
-
     QSqlDatabase db = QSqlDatabase::database("REP");
     QSqlQuery query("SELECT * from Passagers" , db);
     qint32 i = 0;
 
     while (query.next())
     {
-        //        qDebug() <<  query.record().count();
-
         if (recherche == query.value(3).toString() || recherche == query.value(4).toString() || recherche == query.value(2).toString() || recherche == query.value(1).toString() || recherche == query.value(0).toString() ) {
             QJsonObject o;
-            o["id"] = query.value(0).toInt();
-            o["Nom"] = query.value(1).toString();
-            o["Prenom"] = query.value(2).toString();
-            o["Email"] = query.value(4).toString();
-            o["Telephone"] = query.value(3).toString();
+            QList<QString> listeKeys{"id","Nom","Prenom","Telephone", "Email"};
+            int it{0};
+            for(auto &key  : listeKeys) o[key] = query.value(it++).toString();
+            //            o["id"] = query.value(0).toInt();
+            //            o["Nom"] = query.value(1).toString();
+            //            o["Prenom"] = query.value(2).toString();
+            //            o["Telephone"] = query.value(3).toString();
+            //            o["Email"] = query.value(4).toString();
             tab.append(o);
         }
         else i++;
@@ -225,8 +156,8 @@ QJsonObject getPassager(QString recherche)
 }
 
 
-//__________________________________________
-//Requete 4
+/* Requete 4 */
+
 QString addPassager(QJsonObject o)
 {
     QSqlDatabase db = QSqlDatabase::database("REP");
@@ -234,15 +165,14 @@ QString addPassager(QJsonObject o)
     QString requete = QString("INSERT INTO Passagers (Nom,Prenom,Telephone,Email) VALUES (\"%1\",\"%2\",\"%3\",\"%4\" )").arg(o["Nom"].toString()).arg(o["Prenom"].toString()).arg(o["Telephone"].toString()).arg(o["Email"].toString());
     QSqlQuery query(db);
     query.exec(requete);
-    //    qDebug() << requete;
     return query.lastError().text();
 }
 
 
 
 
-//__________________________________________
-//Requete 4-1
+/* Requete 4-1 */
+
 void updatePassager(QJsonObject o)
 {
     QSqlDatabase db = QSqlDatabase::database("REP");
@@ -251,7 +181,6 @@ void updatePassager(QJsonObject o)
     int i = 0;
     while (query0.next())
     {
-
         if (o["id"].toInt() == query0.value(0).toInt() ) {
 
             if (o["Nom"].toString() != query0.value(1).toString()) {
@@ -259,25 +188,21 @@ void updatePassager(QJsonObject o)
                 QSqlQuery query(db);
                 query.exec(requete);
             }
-
             if (o["Prenom"].toString() != query0.value(2).toString()) {
                 QString requete = QString("UPDATE Passagers SET Prenom= \"%1\" WHERE id = %2  ").arg(o["Prenom"].toString()).arg(o["id"].toInt());
                 QSqlQuery query(db);
                 query.exec(requete);
             }
-
             if (o["Telephone"].toString() != query0.value(3).toString()) {
                 QString requete = QString("UPDATE Passagers SET Telephone= \"%1\" WHERE id = %2  ").arg(o["Telephone"].toString()).arg(o["id"].toInt());
                 QSqlQuery query(db);
                 query.exec(requete);
             }
-
             if (o["Email"].toString() != query0.value(4).toString()) {
                 QString requete = QString("UPDATE Passagers SET Email= \"%1\" WHERE id = %2  ").arg(o["Email"].toString()).arg(o["id"].toInt());
                 QSqlQuery query(db);
                 query.exec(requete);
             }
-
         }
         else i++;
     }
@@ -285,15 +210,12 @@ void updatePassager(QJsonObject o)
 
 
 
-//__________________________________________
-//Requete 5
+/* Requete 5 */
+
 QString addReservation(QJsonObject o)
 {
-    //    qDebug() << "addreservation maincpp";
-    //    qDebug() << o;
 
     QSqlDatabase db = QSqlDatabase::database("REP");
-
     QString requete = QString("INSERT INTO Reservation (idPassager,idVol, idSiege, UUID) "
                               "VALUES (%1 ,%2,\"%3\",\"%4\") ")
             .arg(o["idPassager"].toInt())
@@ -302,42 +224,45 @@ QString addReservation(QJsonObject o)
             .arg(o["UUID"].toString());
     QSqlQuery query(db);
     query.exec(requete);
-    //    qDebug() << requete;
     return query.lastError().text();
-
 }
 
 
 
 
-//__________________________________________
-//Requete 6
+/* Requete 6 */
+
 QJsonObject getReservation(QString UUID)
 {
     QJsonArray tab;
-
     QSqlDatabase db = QSqlDatabase::database("REP");
 
     QString requete = QString("SELECT Reservation.idVol, Reservation.idSiege, Reservation.UUID, Passagers.Nom, Passagers.Prenom, Vols.dateArrivee, Vols.dateDepart, Vols.heureArrivee, Vols.heureDepart, Avions.NomAvion, Avions.nbLigne, Avions.nbColonne, depart.nomVille AS Depart, arrivee.nomVille AS Arrivee FROM Reservation INNER JOIN Passagers ON Passagers.id = Reservation.idPassager  INNER JOIN Vols ON Vols.id = Reservation.idVol  INNER JOIN Avions ON Avions.id = Vols.idAvion INNER JOIN Villes as arrivee ON arrivee.id = Vols.idArrivee INNER JOIN Villes as depart ON depart.id = Vols.idDepart WHERE UUID = \"%1\" ").arg(UUID);
-    //    qDebug() << requete;
     QSqlQuery query(requete, db);
-    //qint32 i=0;
     while (query.next())
     {
         QJsonObject o;
+        QList<QString> listeKeys{"idVol","NoidSiegem","UUID","Nom", "Prenom", "dateArrivee", "dateDepart", "heureArrivee", "heureDepart", "Nom", "Depart", "Arrivee"};
+        int it{0};
+        for(auto &key  : listeKeys) o[key] = query.value(it++).toString();
+        for(int i=0; i<12; i++){
+            if(i<10) o[listeKeys[i]] = query.value(i).toString();
+            else o[listeKeys[i]] = query.value(i+2).toString();
+        }
 
-        o["idSiege"] = query.value(1).toString();
-        o["idVol"] = query.value(0).toInt();
-        o["Arrivee"] = query.value(13).toString();
-        o["Depart"] = query.value(12).toString();
-        o["Nom"] = query.value(9).toString();
-        o["dateArrivee"] = query.value(5).toString();
-        o["dateDepart"] = query.value(6).toString();
-        o["heureArrivee"] = query.value(7).toString();
-        o["heureDepart"] = query.value(8).toString();
-        o["UUID"] = query.value(2).toString();
-        o["Nom"] = query.value(3).toString();
-        o["Prenom"] = query.value(4).toString();
+        //        o["idVol"] = query.value(0).toInt();
+        //        o["idSiege"] = query.value(1).toString();
+        //        o["UUID"] = query.value(2).toString();
+        //        o["Nom"] = query.value(3).toString();
+        //        o["Prenom"] = query.value(4).toString();
+        //        o["dateArrivee"] = query.value(5).toString();
+        //        o["dateDepart"] = query.value(6).toString();
+        //        o["heureArrivee"] = query.value(7).toString();
+        //        o["heureDepart"] = query.value(8).toString();
+        //        o["Nom"] = query.value(9).toString();
+        //        o["Depart"] = query.value(12).toString();
+        //        o["Arrivee"] = query.value(13).toString();
+
         tab.append(o);
     }
     return QJsonObject{
@@ -348,8 +273,7 @@ QJsonObject getReservation(QString UUID)
 }
 
 
-//__________________________________________
-//Requete 7
+/* Requete 7 */
 
 void updateReservation(QJsonObject o)
 {
@@ -369,34 +293,11 @@ void updateReservation(QJsonObject o)
                 .arg(o["UUID"].toString());
         QSqlQuery query(db);
         query.exec(rqte);
-        //        qDebug() << "updateReservation";
-        //        qDebug() << rqte;
-
-        //        if (o["UUID"].toString() == query3.value(5).toString()) {
-        //            if (o["idVol"].toInt() != query3.value(2).toInt()) {
-        //                QString requete = QString("UPDATE Reservation SET idVol= %1 WHERE UUID= \"%2\" ").arg(o["idVol"].toInt()).arg(o["UUID"].toString());
-        //                QSqlQuery query(db);
-        //                query.exec(requete);
-        //            }
-
-        //            if (o["idSiege"].toString() != query3.value(3).toString()) {
-        //                QString requete = QString("UPDATE Reservation SET idSiege= \"%1\" WHERE UUID= \"%2\"  ").arg(o["idSiege"].toString()).arg(o["UUID"].toString());
-        //                QSqlQuery query(db);
-        //                query.exec(requete);
-        //            }
-
-        //            if (o["idPassager"].toInt() != query3.value(1).toInt()) {
-        //                QString requete = QString("UPDATE Reservation SET idPassager= %1  WHERE UUID= \"%2\" ").arg(o["idPassager"].toInt()).arg(o["UUID"].toString());
-        //                QSqlQuery query(db);
-        //                query.exec(requete);
-        //            }
-
     }
 }
 
 
-//__________________________________________
-//Requete 8
+/* Requete 8 */
 void deleteReservation( QString UUID)
 {
     QSqlDatabase db = QSqlDatabase::database("REP");
@@ -459,9 +360,6 @@ int main(int argc, char *argv[])
         return getPassager(recherche);
     });
 
-    /*server.route("/reservations/<arg>", [] (QString uuid ,const QHttpServerRequest &request) {
-                return getReservation(uuid);
-            });*/
 
     server.route("/passagers", [] (const QHttpServerRequest & request) {
         if (request.method() == QHttpServerRequest::Method::Get)
