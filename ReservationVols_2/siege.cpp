@@ -22,7 +22,7 @@ void Siege::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     QRectF r1 = QRectF(5, 5, 35, 45);
     QDir path = QDir::currentPath();
     //    qDebug() << path.dirName();
-    path.cd("../ReservationVols");
+    path.cd("../ReservationVols_2");
     QImage image(path.absoluteFilePath("siege.png"));
 
     if (mOccupe == false) {
